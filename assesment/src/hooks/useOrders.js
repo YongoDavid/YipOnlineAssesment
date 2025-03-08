@@ -1,18 +1,7 @@
-import { useState, useEffect } from "react";
-import { fetchOrders } from "../utils/api";
+import { useState } from "react";
+import Data from "../data/mockOrders.json";
 
 export const useOrders = () => {
-    const [orders, setOrders] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const getOrders = async () => {
-            const data = await fetchOrders();
-            setOrders(data);
-            setLoading(false);
-        };
-        getOrders();
-    }, []);
-
-    return { orders, setOrders, loading };
+    const [orders, setOrders] = useState(Data); // ✅ orders should be initialized with mock data
+    return orders; // ✅ Return only the array, NOT JSX
 };
