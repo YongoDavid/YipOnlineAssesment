@@ -26,7 +26,7 @@
    {
       "id": "ORD12348", 
       "customer": "Yongo David", 
-      "items": ["Fies", "Pepsi", "Water"], 
+      "items": ["Fries", "Pepsi", "Water"], 
       "totalPrice": 15.49, 
       "status": "Completed", 
       "timestamp": "2025-03-04T11:45:00Z" 

@@ -1,14 +1,16 @@
-import { useState} from "react";
-import Data from '../data/mockOrders.json';
-import OrdersTable from "../components/OrdersTable";
+// import Data from '../data/mockOrders.json'
+// import OrdersTable from "../components/OrdersTable";
 
-export const useOrders = () => {
-    const [orders , setOrders] = useState(Data);
-    return (
-        <div>
-            {orders.map(order => {
-                <OrdersTable key={order.id} order={order} />
-            })}
-        </div>
-    )
-}; 
+// export const useOrders = () => {
+//     return (
+//         <div>
+//             {Data.map(order => {
+//                 return(
+//                     <div>
+//                         <OrdersTable key={order.id} order={order} />
+//                     </div>
+//                 )
+//             })}
+//         </div>
+//     )
+// }; 

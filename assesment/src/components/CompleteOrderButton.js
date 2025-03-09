@@ -1,12 +1,18 @@
-// import { Button } from "@chakra-ui/react";
-// import axios from "axios";
+import { Button } from "@chakra-ui/react";
 
-// function CompleteOrderButton({ orderId }) {
-//   const completeOrder = () => {
-//     axios.patch(`/api/orders/${orderId}`, { status: "Completed" });
-//   };
+export default function CompleteOrderButton({ orderId }) {
+  const handleComplete = () => {
+    console.log(`Completing order ${orderId}`);
+    // Add your completion logic here
+  };
 
-//   return <Button colorScheme="green" onClick={completeOrder}>Complete Order</Button>;
-// }
-
-// export default CompleteOrderButton;
+  return (
+    <Button 
+      colorScheme="green" 
+      size="sm" 
+      onClick={handleComplete}
+    >
+      Complete
+    </Button>
+  );
+}
