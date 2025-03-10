@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { Table, Thead, Tbody, Tr, Th, Td, Box, Heading, Spinner, Button } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, Box, Heading, Spinner, Button, Badge,Flex,Icon,Text} from "@chakra-ui/react";
+import { ChevronUpIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import OrderStatusButton from "./OrderStatusButton"
 import FilterSortControls from "./FilterSortControls";
 import Data from '../data/mockOrders.json';
@@ -13,9 +14,28 @@ export default function OrdersTable() {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState('');
+  const [sortField, setSortField] = useState('');
+  const [sortDirection, setSortDirection] = useState('asc');
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
+
+  // Handle sort toggle
+  const handleSort = (field) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+    
+    // Update the sort state based on the field
+    if (field === 'date') {
+      setSort('date');
+    } else if (field === 'price') {
+      setSort('price');
+    }
+  };
 
   // Memoize the filtered and sorted orders
   const processedOrders = useMemo(() => {
@@ -24,14 +44,18 @@ export default function OrdersTable() {
       .sort((a, b) => {
         if (!sort) return 0;
         if (sort === 'date') {
-          return new Date(b.timestamp) - new Date(a.timestamp);
+          return sortDirection === 'asc' 
+            ? new Date(a.timestamp) - new Date(b.timestamp)
+            : new Date(b.timestamp) - new Date(a.timestamp);
         }
         if (sort === 'price') {
-          return b.totalPrice - a.totalPrice;
+          return sortDirection === 'asc'
+            ? a.totalPrice - b.totalPrice
+            : b.totalPrice - a.totalPrice;
         }
         return 0;
       });
-  }, [orders, filter, sort]);
+  }, [orders, filter, sort, sortDirection]);
 
   // Memoize the paginated orders
   const paginatedOrders = useMemo(() => {
@@ -39,6 +63,7 @@ export default function OrdersTable() {
     const endIndex = page * ITEMS_PER_PAGE;
     return processedOrders.slice(startIndex, endIndex);
   }, [processedOrders, page]);
+  
 
   // Memoize the handleOrderStatusChange function
   const handleOrderStatusChange = useCallback((orderId, newStatus) => {
@@ -110,16 +135,91 @@ export default function OrdersTable() {
         Orders Dashboard
       </Heading>
       <FilterSortControls setFilter={setFilter} setSort={setSort}/>
-      <Table variant="simple" colorScheme="teal" size="lg">
+      <Table variant="simple" size="lg" borderCollapse="collapse">
         <Thead>
-          <Tr>
-            <Th>Order ID</Th>
-            <Th>Customer</Th>
-            <Th>Items</Th>
-            <Th>Total Price</Th>
-            <Th>Status</Th>
-            <Th>Timestamp</Th>
-            <Th>Actions</Th>
+          <Tr bg="#f8f9fa">
+            <Th
+              py={4} 
+              borderBottom="1px solid #e2e8f0"
+              onClick={() => handleSort('id')}
+              cursor="pointer"
+            >
+              <Flex align="center">
+                Order ID
+                  <Flex direction="column" ml={1}>
+                    <Icon as={ChevronUpIcon} w={3} h={3} color={sortField === 'id' && sortDirection === 'asc' ? 'black' : 'gray.400'} />
+                    <Icon as={ChevronDownIcon} w={3} h={3} mt="-2px" color={sortField === 'id' && sortDirection === 'desc' ? 'black' : 'gray.400'} />
+                  </Flex>
+              </Flex>
+            </Th>
+            <Th
+              py={4} 
+              borderBottom="1px solid #e2e8f0"
+              onClick={() => handleSort('date')}
+              cursor="pointer"
+            >
+              Customer
+            </Th>
+            <Th
+              py={4} 
+              borderBottom="1px solid #e2e8f0"
+              cursor="pointer"
+            >
+              <Flex align="center">
+                Items
+                <Flex direction="column" ml={1}>
+                  <Icon as={ChevronUpIcon} w={3} h={3} color="gray.400" />
+                  <Icon as={ChevronDownIcon} w={3} h={3} mt="-2px" color="gray.400" />
+                </Flex>
+              </Flex>
+            </Th>
+            <Th
+              py={4} 
+              borderBottom="1px solid #e2e8f0"
+              onClick={() => handleSort('price')}
+              cursor="pointer"
+            >
+              <Flex align="center">
+                Total
+                <Flex direction="column" ml={1}>
+                  <Icon as={ChevronUpIcon} w={3} h={3} color={sortField === 'price' && sortDirection === 'asc' ? 'black' : 'gray.400'} />
+                  <Icon as={ChevronDownIcon} w={3} h={3} mt="-2px" color={sortField === 'price' && sortDirection === 'desc' ? 'black' : 'gray.400'} />
+                </Flex>
+              </Flex>
+            </Th>
+            <Th
+              py={4} 
+              borderBottom="1px solid #e2e8f0"
+              cursor="pointer"
+            >
+              <Flex align="center">
+                Status
+                {/* <Flex direction="column" ml={1}>
+                  <Icon as={ChevronUpIcon} w={3} h={3} color="gray.400" />
+                  <Icon as={ChevronDownIcon} w={3} h={3} mt="-2px" color="gray.400" />
+                </Flex> */}
+              </Flex>
+            </Th>
+            <Th
+              py={4} 
+              borderBottom="1px solid #e2e8f0"
+              onClick={() => handleSort('date')}
+              cursor="pointer"
+            >
+              <Flex>
+                Timestamp
+                <Flex direction="column" ml={1}>
+                  <Icon as={ChevronUpIcon} w={3} h={3} color={sortField === 'date' && sortDirection === 'asc' ? 'black' : 'gray.400'} />
+                  <Icon as={ChevronDownIcon} w={3} h={3} mt="-2px" color={sortField === 'date' && sortDirection === 'desc' ? 'black' : 'gray.400'} />
+                </Flex>
+              </Flex>
+            </Th>
+            <Th
+              py={4} 
+              borderBottom="1px solid #e2e8f0"
+              onClick={() => handleSort('id')}
+              cursor="pointer"
+            >Actions</Th>
           </Tr>
         </Thead>
         <Tbody>
