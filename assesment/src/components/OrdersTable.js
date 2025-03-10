@@ -102,7 +102,13 @@ export default function OrdersTable() {
 
   return (
     <Box>
-      <Heading as="h1" mb={4}>Orders Dashboard</Heading>
+      <Heading 
+      as="h1"
+      mb={4}
+      textAlign="center"
+      >
+        Orders Dashboard
+      </Heading>
       <FilterSortControls setFilter={setFilter} setSort={setSort}/>
       <Table variant="simple" colorScheme="teal" size="lg">
         <Thead>

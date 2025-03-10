@@ -3,11 +3,11 @@ import { Select } from "@chakra-ui/react";
 function FilterSortControls({ setFilter, setSort }) {
   return (
     <div>
-      <Select placeholder="Filter by Status" onChange={(e) => setFilter(e.target.value)}>
+      <Select placeholder="Filter by Status" onChange={(e) => setFilter(e.target.value)} m={2}>
         <option value="Pending">Pending</option>
         <option value="Completed">Completed</option>
       </Select>
-      <Select placeholder="Sort by" onChange={(e) => setSort(e.target.value)}>
+      <Select placeholder="Sort by" onChange={(e) => setSort(e.target.value)} m={2}>
         <option value="date">Date</option>
         <option value="price">Total Price</option>
       </Select>
