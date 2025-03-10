@@ -1,12 +1,14 @@
 import { Table, Thead, Tbody, Tr, Th, Td, Box, Heading } from "@chakra-ui/react";
 import CompleteOrderButton from "./CompleteOrderButton";
-import FilterSortControls from "./FilerSortControls";
+import FilterSortControls from "./FilterSortControls";
 import Data from '../data/mockOrders.json';
 import { useState, useEffect } from "react";
 
 export default function OrdersTable() {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
+  const [filter, setFilter] = useState('');
+  const [sort, setSort] = useState('');
 
   if (!CompleteOrderButton) {
     console.error('CompleteOrderButton component not found');
@@ -32,7 +34,7 @@ export default function OrdersTable() {
   return (
     <Box>
       <Heading as="h1" mb={4}>Orders Dashboard</Heading>
-      <FilterSortControls/>
+      <FilterSortControls setFilter={setFilter} setSort={setSort}/>
       <Table variant="simple" colorScheme="teal" size="lg">
         <Thead>
           <Tr>
@@ -47,21 +49,33 @@ export default function OrdersTable() {
         </Thead>
         <Tbody>
           {orders && orders.length > 0 ? (
-            orders.map((order) => (
-              <Tr key={order.id}>
-                <Td>{order.id}</Td>
-                <Td>{order.customer}</Td>
-                <Td>{order.items.join(", ")}</Td>
-                <Td>${order.totalPrice.toFixed(2)}</Td>
-                <Td>{order.status}</Td>
-                <Td>{new Date(order.timestamp).toLocaleString()}</Td>
-                <Td>
-                  {order.status === "Pending" && CompleteOrderButton && (
-                    <CompleteOrderButton orderId={order.id} />
-                  )}
-                </Td>
-              </Tr>
-            ))
+            orders
+              .filter(order => !filter || order.status === filter)
+              .sort((a, b) => {
+                if (!sort) return 0;
+                if (sort === 'date') {
+                  return new Date(b.timestamp) - new Date(a.timestamp);
+                }
+                if (sort === 'price') {
+                  return b.totalPrice - a.totalPrice;
+                }
+                return 0;
+              })
+              .map((order) => (
+                <Tr key={order.id}>
+                  <Td>{order.id}</Td>
+                  <Td>{order.customer}</Td>
+                  <Td>{order.items.join(", ")}</Td>
+                  <Td>${order.totalPrice.toFixed(2)}</Td>
+                  <Td>{order.status}</Td>
+                  <Td>{new Date(order.timestamp).toLocaleString()}</Td>
+                  <Td>
+                    {order.status === "Pending" && CompleteOrderButton && (
+                      <CompleteOrderButton orderId={order.id} />
+                    )}
+                  </Td>
+                </Tr>
+              ))
           ) : (
             <Tr>
               <Td colSpan="7" textAlign="center">No orders available</Td>

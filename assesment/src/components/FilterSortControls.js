@@ -12,7 +12,7 @@ function FilterSortControls({ setFilter, setSort }) {
         <option value="price">Total Price</option>
       </Select>
     </div>
-  );
+  ); 
 }
 
 export default FilterSortControls;
