@@ -1,5 +1,6 @@
 import { Table, Thead, Tbody, Tr, Th, Td, Box, Heading } from "@chakra-ui/react";
 import CompleteOrderButton from "./CompleteOrderButton";
+import FilterSortControls from "./FilerSortControls";
 import Data from '../data/mockOrders.json';
 import { useState, useEffect } from "react";
 
@@ -31,6 +32,7 @@ export default function OrdersTable() {
   return (
     <Box>
       <Heading as="h1" mb={4}>Orders Dashboard</Heading>
+      <FilterSortControls/>
       <Table variant="simple" colorScheme="teal" size="lg">
         <Thead>
           <Tr>
