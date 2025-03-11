@@ -1,5 +1,4 @@
 # Orders Dashboard
-
 A React-based orders management dashboard built with Chakra UI, featuring real-time order status updates and efficient data handling.
 
 ### Key Features
