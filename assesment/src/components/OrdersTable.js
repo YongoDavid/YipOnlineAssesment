@@ -131,6 +131,7 @@ export default function OrdersTable() {
       as="h1"
       mb={4}
       textAlign="center"
+      color="black"
       >
         Orders Dashboard
       </Heading>
@@ -143,6 +144,7 @@ export default function OrdersTable() {
               borderBottom="1px solid #e2e8f0"
               onClick={() => handleSort('id')}
               cursor="pointer"
+              color="black"
             >
               <Flex align="center">
                 Order ID
@@ -157,6 +159,7 @@ export default function OrdersTable() {
               borderBottom="1px solid #e2e8f0"
               onClick={() => handleSort('date')}
               cursor="pointer"
+              color="black"
             >
               Customer
             </Th>
@@ -164,6 +167,7 @@ export default function OrdersTable() {
               py={4} 
               borderBottom="1px solid #e2e8f0"
               cursor="pointer"
+              color="black"
             >
               <Flex align="center">
                 Items
@@ -178,6 +182,7 @@ export default function OrdersTable() {
               borderBottom="1px solid #e2e8f0"
               onClick={() => handleSort('price')}
               cursor="pointer"
+              color="black"
             >
               <Flex align="center">
                 Total
@@ -191,6 +196,7 @@ export default function OrdersTable() {
               py={4} 
               borderBottom="1px solid #e2e8f0"
               cursor="pointer"
+              color="black"
             >
               <Flex align="center">
                 Status
@@ -205,6 +211,7 @@ export default function OrdersTable() {
               borderBottom="1px solid #e2e8f0"
               onClick={() => handleSort('date')}
               cursor="pointer"
+              color="black"
             >
               <Flex>
                 Timestamp
@@ -219,6 +226,7 @@ export default function OrdersTable() {
               borderBottom="1px solid #e2e8f0"
               onClick={() => handleSort('id')}
               cursor="pointer"
+              color="black"
             >Actions</Th>
           </Tr>
         </Thead>
@@ -260,12 +268,12 @@ export default function OrdersTable() {
 const OrderRow = React.memo(({ order, onStatusChange }) => {
   return (
     <Tr>
-      <Td>{order.id}</Td>
-      <Td>{order.customer}</Td>
-      <Td>{order.items.join(", ")}</Td>
-      <Td>${order.totalPrice.toFixed(2)}</Td>
-      <Td>{order.status}</Td>
-      <Td>{new Date(order.timestamp).toLocaleString()}</Td>
+      <Td color="black">{order.id}</Td>
+      <Td color="black">{order.customer}</Td>
+      <Td color="black">{order.items.join(", ")}</Td>
+      <Td color="black">${order.totalPrice.toFixed(2)}</Td>
+      <Td color="black">{order.status}</Td>
+      <Td color="black">{new Date(order.timestamp).toLocaleString()}</Td>
       <Td>
         <OrderStatusButton 
           orderId={order.id}

@@ -39,7 +39,7 @@ function FilterSortControls({ setFilter, setSort }) {
             py={2}
             borderRadius="lg"
             _hover={{ bg: 'gray.50' }}
-            boxShadow="sm"
+            boxShadow="md"
           >
             Sort by
           </MenuButton>
@@ -62,11 +62,13 @@ function FilterSortControls({ setFilter, setSort }) {
             py={2}
             borderRadius="lg"
             _hover={{ bg: 'gray.50' }}
-            boxShadow="sm"
+            boxShadow="md"
           >
             Filter
           </MenuButton>
-          <MenuList>
+          <MenuList
+            color="white"
+          >
             <MenuItem onClick={() => setFilter('Pending')}>Pending</MenuItem>
             <MenuItem onClick={() => setFilter('Completed')}>Completed</MenuItem>
           </MenuList>
