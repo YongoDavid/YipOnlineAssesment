@@ -24,3 +24,4 @@ It could introduce slight delays in reflecting status changes, which is not idea
 ### Advanced Configuration
 
 ### Deployment
+What i have left is Responsive layout for both desktop and mobile.
