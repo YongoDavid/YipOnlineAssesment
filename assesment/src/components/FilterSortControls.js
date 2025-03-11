@@ -1,7 +1,5 @@
 import { 
   Button, 
-  HStack,
-  VStack,
   Menu,
   MenuButton,
   MenuList,
@@ -16,7 +14,6 @@ import {
   HamburgerIcon,
   TriangleUpIcon,
   TriangleDownIcon,
-  ViewIcon
 } from "@chakra-ui/icons";
 
 function FilterSortControls({ setFilter, setSort }) {
