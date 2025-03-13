@@ -8,7 +8,6 @@ export default function OrderStatusButton({ orderId, status, onOrderStatusChange
 
   return (
     <Button 
-      color="white"
       colorScheme={status === "Pending" ? "green" : "orange"}
       size="sm" 
       onClick={handleStatusToggle}

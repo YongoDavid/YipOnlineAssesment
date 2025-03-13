@@ -267,7 +267,7 @@ export default function OrdersTable() {
                   {order.items.join(", ")}
                 </Td>
                 <Td color="black" fontSize={cellFontSize}>${order.totalPrice.toFixed(2)}</Td>
-                <Td color="black" fontSize={cellFontSize}>
+                <Td color="white" fontSize={cellFontSize}>
                   <Badge colorScheme={
                     order.status === 'Pending' ? 'yellow' : 
                     order.status === 'Completed' ? 'green' : 'blue'
